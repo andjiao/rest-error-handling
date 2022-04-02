@@ -10,7 +10,7 @@ export function page4Handlers() {
 }
 
 
-async function findQuote() {
+export async function findQuote() {
   document.getElementById("error").innerText=""
 
   const id = getIdFromInputField()
@@ -21,16 +21,19 @@ async function findQuote() {
   try{
     const options = makeOptions("GET", id)
     const findQuote = await fetch(`${SERVER_URL}/${id}`, options)
-    .then(res => handleHttpErrors(res))
+        .then(res => handleHttpErrors(res))
     document.getElementById("findQuote").innerText=
-    JSON.stringify(findQuote)
+        JSON.stringify(findQuote)
   } catch(err){
     document.getElementById("error").innerText = err.message
   }
-    
+
 }
 
-async function editQuote() {
+export async function editQuote() {
+  const editQuote={}
+
+
   const id = getIdFromInputField()
   const quote = getIdFromInputField()
   const author = getIdFromInputField()
@@ -38,7 +41,7 @@ async function editQuote() {
   const editedQuote = {
     id: id
     quote: quote
-    
+
   }
 
   editedQuote.quote = document.getElementById("quote").value
@@ -52,18 +55,18 @@ async function editQuote() {
     },
     body: JSON.stringify(editedQuote)
   })
-    .then(res => {
-      if (!res.ok) {
-        throw new Error("Error while editing the quote")
-      }
-      return res.json()
-    })
-    .then(result => clearFields())
-    .catch(err => alert(err.message + " (NEVER USE ALERT FOR REAL)"))
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("Error while editing the quote")
+        }
+        return res.json()
+      })
+      .then(result => clearFields())
+      .catch(err => alert(err.message + " (NEVER USE ALERT FOR REAL)"))
 
 
 }
-async function deleteQuote() {
+export async function deleteQuote() {
   const id = getIdFromInputField()
   await fetch(SERVER_URL + "/" + id, {
     method: "DELETE"

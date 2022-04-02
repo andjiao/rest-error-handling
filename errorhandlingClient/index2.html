@@ -84,13 +84,17 @@
 
 <template data-id="page-4">
   <h2>Find Quote</h2>
+  
   <div class="row">
+    
     <div class="col">
       <input type="text" class="form-control" id="quote-id" placeholder="Enter id">
     </div>
+
     <div class="col">
       <button class="btn btn-primary mb-3" id="btn-find">Find Quote</button>
     </div>
+
   </div>
 
   <div id="input-controls" style="display: block;">
@@ -98,32 +102,22 @@
       <label for="quote" class="form-label">Quote</label>
       <input type="text" class="form-control" id="quote"">
   </div>
+
+
   <div class=" mb-3">
       <label for="author" class="form-label">Author</label>
       <input type="text" class="form-control" id="author">
     </div>
+
     <div class="col-auto">
-      <button id="btn-add" href="#" onclick="addQuote()">Add Quote</button>
-      <button id="btn-edit" href="#" onclick="editQuote()">Edit Quote</button>
-      <button id="btn-delete" href="#" onclick="deleteQuote()">Delete Quote</button>
+      <button class="btn btn-primary mb-3" id="btn-add">Add Quote</button>
+      <button class="btn btn-secondary mb-3" id="btn-edit">Edit Quote</button>
+      <button class="btn btn-danger mb-3" id="btn-delete">Delete Quote</button>
+ 
     </div>
   </div>
-
-<div id ="editQuote">
-  <h1>Edit Qouto</h1>
-  <form>
-    <input id="idQuote" placeholder="idQuote">
-    <input id="quote" placeholder="quote">
-    <input id="author" placeholder="author">
-    <button btn-editQuote type="submit"> Done editing</button>
-
-
-  </form>
-
-
-
-</div>
-
+  
   <div id="findQuote"></div>
   <p id="error" style="color:darkorange;"></p>
+
 </template>
