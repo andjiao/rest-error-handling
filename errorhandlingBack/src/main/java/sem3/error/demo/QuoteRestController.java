@@ -14,6 +14,10 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/quotes")
+/*CrossOrigin gør at man kun må lave et kald fra
+samme port som programmet kører i, så hvis vs code kører på port 5500, mens man samtidig kører intelli
+kommer der en Cross-fejl fordi programmet kører over en anden port en 8080, som er der programmet kommer fra...??
+Man kan evt. sætte en specifik server ind, for at fortælle hvorhenne programmet må kaldes fra*/
 @CrossOrigin
 public class QuoteRestController {
   static Map<Integer, Quote> quotes;
@@ -34,7 +38,8 @@ public class QuoteRestController {
   public Quote getQuote(@PathVariable int id) {
      Quote q = quotes.get(id);
      if(q==null){
-       throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No quote with provided ID found");
+       //throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No quote with provided ID found");
+       throw new RuntimeException("ENHJØRNINGER!!!!!!");
      }
      return q;
   }

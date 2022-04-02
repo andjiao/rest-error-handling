@@ -1,7 +1,7 @@
-/**
+/*
  * The encoder method we have used when inserting untrusted data via the innerHTML property
  * Ref: https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
- * @param {str} str 
+ * @param {str} 
  * @returns the encode string
  */
 export function encode(str) {
@@ -29,7 +29,7 @@ export function renderTemplate(id) {
   if (!temp) {
     return console.error(`No Template found for '${id}' `)
   }
-  const clon = temp.content.cloneNode(true);
+  const clon = temp.content.cloneNode(true); // textcontent??
   document.getElementById("content").innerHTML = ""
   document.getElementById("content").appendChild(clon)
 }

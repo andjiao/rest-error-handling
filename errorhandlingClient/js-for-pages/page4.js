@@ -1,4 +1,5 @@
 import { SERVER } from "../settings.js"
+import {handleHttpErrors,makeOptions} from "../fetchUtils.js"
 
 const SERVER_URL = SERVER + "/api/quotes"
 
@@ -9,31 +10,41 @@ export function page4Handlers() {
 }
 
 
-function findQuote() {
+async function findQuote() {
+  document.getElementById("error").innerText=""
+
   const id = getIdFromInputField()
-  fetch(`${SERVER_URL}/${id}`)
-    .then(res => {
-      if (!res.ok) {
-        throw new Error("Could not find quote (")
-      }
-      return res.json()
-    })
-    .then(foundQuote => {
-      document.getElementById("quote").value = foundQuote.quote
-      document.getElementById("author").value = foundQuote.ref
-    })
-    .catch(e => alert(e.message + " (NEVER use alerts for real)"))
+
+  id.quote = document.getElementById("quote").value
+  id.ref = document.getElementById("author").value
+
+  try{
+    const options = makeOptions("GET", id)
+    const findQuote = await fetch(`${SERVER_URL}/${id}`, options)
+    .then(res => handleHttpErrors(res))
+    document.getElementById("findQuote").innerText=
+    JSON.stringify(findQuote)
+  } catch(err){
+    document.getElementById("error").innerText = err.message
+  }
+    
 }
 
-function editQuote() {
+async function editQuote() {
   const id = getIdFromInputField()
+  const quote = getIdFromInputField()
+  const author = getIdFromInputField()
+
   const editedQuote = {
     id: id
+    quote: quote
+    
   }
+
   editedQuote.quote = document.getElementById("quote").value
   editedQuote.ref = document.getElementById("author").value
 
-  fetch(SERVER_URL + "/" + id, {
+  const editQuote = await fetch(SERVER_URL + "/" + id, {
     method: "PUT",
     headers: {
       "Accept": "application/json",
